@@ -13,8 +13,7 @@ pub fn count(input: TokenStream) -> TokenStream {
 
     let ident = macro_input.ident;
     let len: usize = match macro_input.data {
-        Data::Struct(data_enum) => todo!(),
-        // Data::Enum(data_enum) => data_enum.variants.len(),
+        Data::Enum(data_enum) => data_enum.variants.len(),
         _ => unreachable!(),
     };
 
