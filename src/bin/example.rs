@@ -1,7 +1,7 @@
 use proc_macro_example::Count;
 
 #[derive(Count)]
-enum Example {
+pub enum Example {
     Variant1,
     Variant2,
     Variant3,

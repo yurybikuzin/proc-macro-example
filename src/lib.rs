@@ -1,8 +1,8 @@
 extern crate proc_macro;
 use proc_macro::TokenStream;
 
-use syn::{parse_macro_input, DeriveInput, Data};
 use quote::quote;
+use syn::{parse_macro_input, Data, DeriveInput};
 
 /// Example of user-defined [derive mode macro][1]
 ///
@@ -11,9 +11,18 @@ use quote::quote;
 pub fn count(input: TokenStream) -> TokenStream {
     let macro_input = parse_macro_input!(input as DeriveInput);
 
-    // Your code here
+    let ident = macro_input.ident;
+    let len = match macro_input.data {
+        Data::Enum(data_enum) => data_enum.variants.len(),
+        _ => unreachable!(),
+    };
 
     quote!(
-        // Your code here
-    ).into()
+        impl #ident {
+            pub fn count() -> usize {
+                #len
+            }
+        }
+    )
+    .into()
 }
